@@ -52,6 +52,7 @@ while running:
                 mouse_pos = pygame.mouse.get_pos()
                 if 350 <= mouse_pos[0] <= 450 and 250 <= mouse_pos[1] <= 300:
                     update_balance()
+                    print(balance)
     
     # Очистка экрана
     screen.fill(BLACK)
