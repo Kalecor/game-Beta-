@@ -5,39 +5,57 @@ pygame.init()
 
 # Определение цветов
 BLACK = (0, 0, 0)
+GREEN = (0, 255, 0)
 WHITE = (255, 255, 255)
 
 # Определение размеров окна
-WIDTH = 800
+WIDTH = 1024
 HEIGHT = 600
+
+#Создание заднего фона
+background_image = pygame.image.load("Background.jpg")
 
 # Создание окна
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Увеличение баланса")
+pygame.display.set_caption("Clicker")
 
 # Определение шрифта
 font = pygame.font.Font(None, 36)
 
-# Инициализация баланса
+# Инициализация баланса и количества денег за нажатие
 balance = 0
+a = 1
+
+def draw_upgrade():
+    #Рисование кнопки улучшения клика
+    pygame.draw.rect(screen, WHITE, (0,30,220,50))
+
+    #Рисование текста
+    text = font.render("Upgrade cost = 10", True, BLACK)
+    screen.blit(text, (0, 30))
 
 def draw_button():
     # Рисование кнопки
-    pygame.draw.rect(screen, WHITE, (350, 250, 100, 50))
+    pygame.draw.rect(screen, WHITE, (512, 300, 100, 50))
     
     # Рисование текста на кнопке
-    text = font.render("Увеличить", True, BLACK)
-    screen.blit(text, (355, 260))
+    text = font.render("Click", True, BLACK)
+    screen.blit(text, (512, 300))
 
 def update_balance():
     # Увеличение баланса на 1
     global balance
-    balance += 1
+    balance += a
 
 def draw_balance():
     # Рисование текущего баланса
-    text = font.render("Баланс: " + str(balance), True, BLACK)
-    screen.blit(text, (350, 350))
+    text = font.render("Balance: " + str(balance), True, BLACK)
+    screen.blit(text, (0, 0))
+
+def draw_coinsPerClick():
+    #Количество монет за нажатие
+    text = font.render("Coins per click: ", str(a), True, BLACK)
+    screen.blit(text, (250,0))
 
 # Основной цикл программы
 running = True
@@ -50,16 +68,24 @@ while running:
             # Проверка нажатия на кнопку
             if pygame.mouse.get_pressed()[0]:
                 mouse_pos = pygame.mouse.get_pos()
-                if 350 <= mouse_pos[0] <= 450 and 250 <= mouse_pos[1] <= 300:
+                if 512 <= mouse_pos[0] <= 600 and 300 <= mouse_pos[1] <= 350:
                     update_balance()
-                    print(balance)
+                elif 0 <= mouse_pos[0] <= 100 and 30 <= mouse_pos[1] <= 100:
+                    if balance >= 10:
+                        a = a + 1
+                        balance = balance - 10
+                        
+
+                
     
     # Очистка экрана
-    screen.fill(BLACK)
+    screen.blit(background_image, (0,0))
     
     # Рисование кнопки и баланса
     draw_button()
     draw_balance()
+    draw_upgrade()
+    draw_coinsPerClick()
     
     # Обновление экрана
     pygame.display.flip()
