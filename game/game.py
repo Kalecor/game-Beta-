@@ -1,5 +1,4 @@
 import pygame
-
 # Инициализация pygame
 pygame.init()
 
@@ -25,13 +24,15 @@ font = pygame.font.Font(None, 36)
 # Инициализация баланса и количества денег за нажатие
 balance = 0
 a = 1
+n = 1
+priceU0 = 50
 
 def draw_upgrade():
     #Рисование кнопки улучшения клика
     pygame.draw.rect(screen, WHITE, (0,30,220,50))
 
     #Рисование текста
-    text = font.render("Upgrade cost = 10", True, BLACK)
+    text = font.render("Upgrade cost = " + str(priceU), True, BLACK)
     screen.blit(text, (0, 30))
 
 def draw_button():
@@ -43,7 +44,7 @@ def draw_button():
     screen.blit(text, (512, 300))
 
 def update_balance():
-    # Увеличение баланса на 1
+    # Увеличение баланса
     global balance
     balance += a
 
@@ -61,6 +62,12 @@ def draw_coinsPerClick():
 running = True
 while running:
     # Обработка событий
+
+    npriceU = priceU0 * (1.07 ** n)
+    priceU = round (npriceU)
+
+
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -71,10 +78,10 @@ while running:
                 if 512 <= mouse_pos[0] <= 600 and 300 <= mouse_pos[1] <= 350:
                     update_balance()
                 elif 0 <= mouse_pos[0] <= 100 and 30 <= mouse_pos[1] <= 100:
-                    if balance >= 10:
+                    if balance >= priceU:
                         a = a + 1
-                        balance = balance - 10
-                        
+                        n = n + 1
+                        balance = balance - priceU
 
                 
     
