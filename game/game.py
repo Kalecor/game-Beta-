@@ -54,7 +54,7 @@ def draw_balance():
 
 def draw_coinsPerClick():
     #Количество монет за нажатие
-    text = font.render("Coins per click: ", str(a), True, BLACK)
+    text = font.render("Coins per click: " +str(a),True,BLACK)
     screen.blit(text, (250,0))
 
 # Основной цикл программы
