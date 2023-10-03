@@ -75,9 +75,9 @@ while running:
             # Проверка нажатия на кнопку
             if pygame.mouse.get_pressed()[0]:
                 mouse_pos = pygame.mouse.get_pos()
-                if 512 <= mouse_pos[0] <= 600 and 300 <= mouse_pos[1] <= 350:
+                if 512 <= mouse_pos[0] <= 612 and 300 <= mouse_pos[1] <= 350:
                     update_balance()
-                elif 0 <= mouse_pos[0] <= 100 and 30 <= mouse_pos[1] <= 100:
+                elif 0 <= mouse_pos[0] <= 220 and 30 <= mouse_pos[1] <= 80:
                     if balance >= priceU:
                         a = a + 1
                         n = n + 1
